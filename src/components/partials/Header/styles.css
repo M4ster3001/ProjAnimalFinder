@@ -1,8 +1,14 @@
 .headerArea{
+    max-width: 1200px;
+    margin: auto;
     display: flex;
     height: 60px;
     border-bottom: 1px solid #CCC;
     background-color: #578EBE;
+
+    -webkit-box-shadow: 2px 4px 4px 1px #aaa;
+    -moz-box-shadow: 2px 4px 4px 1px #aaa;
+    box-shadow: 2px 4px 4px 1px #aaa;
 }
 
 .logo {
@@ -40,14 +46,14 @@ li {
     margin-right: 20px;
 }
 
-a, .nobutton {
+a, .noButton {
     color: #000;
     font-size: 14px;
     transition: 0.5s;
     outline: 0;               
 }
 
-a:hover, .nobutton:hover {
+a:hover, .noButton:hover {
     color: #999;
 }
 
@@ -72,7 +78,7 @@ a:hover, .nobutton:hover {
     transform: scale(1.1);
 }
 
-.nobutton {
-    border: 0;
-    background-color: transparent;
+.noButton {
+    border: 0 !important;
+    background-color: transparent !important;
 }

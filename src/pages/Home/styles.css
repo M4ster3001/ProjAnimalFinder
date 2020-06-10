@@ -1,0 +1,10 @@
+.pageContainer {
+    display: flex;
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    align-items: center;
+    justify-content: center;
+}

@@ -20,10 +20,6 @@ a, button {
   cursor: pointer;
 }
 
-.noButton {
-  padding: 10px 15px !important;
-}
-
 *:focus {
   border: #59bfff solid 1px;
 }

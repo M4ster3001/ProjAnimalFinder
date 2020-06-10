@@ -7,10 +7,10 @@ import Header from './components/partials/Header';
 
 function App() {
   return (
+
     <BrowserRouter>
-      <Header>
-        <Routes />
-      </Header>
+      <Header />
+      <Routes />
     </BrowserRouter>
   );
 }

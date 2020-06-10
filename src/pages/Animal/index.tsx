@@ -1,5 +1,5 @@
 import React from 'react';
-import './styled.js';
+import './styles.css';
 
 const Animal = () => {
 

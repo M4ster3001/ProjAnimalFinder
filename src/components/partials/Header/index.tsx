@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiPlusCircle } from "react-icons/fi";
+import {  } from "react-icons/fi";
  
 import './styles.css';
 
-const logged = true;
+const logged = false;
 
 const Header: React.FunctionComponent = () => {
 
@@ -23,7 +23,7 @@ const Header: React.FunctionComponent = () => {
                     { logged &&
                     <>
                         <li>
-                            <Link to="/newmissing"> Novo caso</Link>
+                            <Link to="/newmissing" className="button"> Novo caso</Link>
                         </li>
                         <li>
                             <Link to="/profile">Meus dados</Link>
@@ -36,7 +36,7 @@ const Header: React.FunctionComponent = () => {
                     { !logged &&   
                     <>
                         <li>
-                            <Link to="/login" className="button" >Login</Link>
+                            <Link to="/login" className="" >Login</Link>
                         </li>
                         <li>
                             <Link to="/register" className="button" >Cadastrar</Link>

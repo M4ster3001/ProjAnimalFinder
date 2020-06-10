@@ -3,9 +3,9 @@
     FrontEnd( React.js )
 
     - telas
+     - home ( )
      - login ( )
      - cadastro ( )
-     - home ( )
      - perfil user ( )
      - show animal ( )
      - cadastro desaparecido/ edit ( )
