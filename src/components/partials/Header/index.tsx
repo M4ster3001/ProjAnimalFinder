@@ -4,7 +4,7 @@ import {  } from "react-icons/fi";
  
 import './styles.css';
 
-const logged = true;
+const logged = false;
 
 const Header: React.FunctionComponent = () => {
 

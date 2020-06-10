@@ -1,10 +1,11 @@
 
-.cardArea {
+.newmissingArea {
     font-size: 16px;
     width: 100%;
     border: 1px solid #000;
     margin: 5px 20px 10px 0;
     border-radius: 5px;
+    background-color: #fff;
 
     transition: all ease 0.5s;
     -o-transition: all ease 0.5s;
@@ -16,31 +17,45 @@
     box-shadow: 2px 4px 4px 1px #aaa;
 }
 
-.cardArea:hover {
-    transform: scale(1.05);
-    border: 1px solid #E7505A;
-    z-index: 999;
-}
-
-.cardHeader {
+.newmissingHeader {
     margin: 15px 0 0px 0;
     text-transform: uppercase;
     color: #E7505A;
     font-weight: 700;
 }
 
-.cardImg {
+.newmissingImg {
     margin: auto;
     width: 270px;
     height: 250px;
 }
 
-.cardImg img {
+.dzu-dropzone {
     margin-top: 20px;
-    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 270px;
     height: 190px;
+    overflow: unset;
+    position: relative;
+    box-sizing: border-box;
+    transition: all .15s linear;
+    border-radius: 10px;
+}
+
+.dzu-previewContainer {
+    padding: 1px 1px 1px 1px;
+}
+
+.dzu-dropzone img {
+    margin-top: 0;
+    border-radius: 10px;
+    width: 265px;
+    height: 184px;
     border: 1px solid #ccc;
+    max-width: 270px;
+    max-height: 190px;
 }
 
 .body {
@@ -48,11 +63,11 @@
     margin: 0 5px;
 }
 
-.cardName {
+.newmissingName {
     font-size: 18px;
 }
 
-.cardName, .cardAge, .cardLastPlace, .cardInfo {
+.newmissingName, .newmissingAge, .newmissingLastPlace, .newmissingInfo {
     margin: 5px 0px;
 }
 
@@ -72,10 +87,6 @@
     -o-transition: all ease 0.5s;
     -moz-transition: all ease 0.5s;
     -webkit-transition: all ease 0.5s;
-}
-
-.registerButton:hover {
-    transform: scale(1.05);
 }
 
 form .inputAreaLog textarea {
