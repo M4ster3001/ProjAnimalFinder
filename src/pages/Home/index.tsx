@@ -1,16 +1,14 @@
 import React from 'react';
 
+import Cards from '../../components/partials/Cards'
+
 import './styles.css';
 
 const Home = () => {
 
     return(
         <div className="pageContainer">
-            <div className="cardArea">
-                <div className="cardImg">
-                    <img src="http://192.168.10.102:3333/uploads/doguinho.jpg" alt="Doguinho" />
-                </div>
-            </div>
+            <Cards />
         </div>
     );
 }

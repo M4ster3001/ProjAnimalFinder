@@ -25,8 +25,17 @@ a, button {
 }
 
 .pageContainer {
+  display: flex;
   max-width: 1200px;
-  background-color: aqua;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .body, .footer {

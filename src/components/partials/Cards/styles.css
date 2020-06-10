@@ -1,3 +1,79 @@
+
 .cardArea {
-    
+    font-size: 16px;
+    width: 25%;
+    border: 1px solid #000;
+    margin: 5px 20px 10px 0;
+    border-radius: 5px;
+
+    transition: all ease 0.5s;
+    -o-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+    -webkit-transition: all ease 0.5s;
+
+    -webkit-box-shadow: 2px 4px 4px 1px #aaa;
+    -moz-box-shadow: 2px 4px 4px 1px #aaa;
+    box-shadow: 2px 4px 4px 1px #aaa;
+}
+
+.cardArea:hover {
+    transform: scale(1.05);
+    border: 1px solid #E7505A;
+    z-index: 999;
+}
+
+.cardHeader {
+    margin: 15px 0 0px 0;
+    text-transform: uppercase;
+    color: #E7505A;
+    font-weight: 700;
+}
+
+.cardImg {
+    margin: auto;
+    width: 270px;
+    height: 250px;
+}
+
+.cardImg img {
+    margin-top: 20px;
+    border-radius: 10px;
+    width: 270px;
+    height: 190px;
+    border: 1px solid #ccc;
+}
+
+.body {
+    border-top: 1px solid #000;
+    margin: 0 5px;
+}
+
+.cardName {
+    font-size: 18px;
+}
+
+.cardName, .cardAge, .cardLastPlace, .cardInfo {
+    margin: 5px 0px;
+}
+
+.footer {
+    border-top: 1px solid #000;
+    margin: 0 5px;
+}
+
+.contactButton {
+    padding: 12px 20px;
+    border-radius: 8px;
+    background-color: #26C281;
+    border: 1px solid #ccc;
+    text-transform: uppercase;
+
+    transition: all ease 0.5s;
+    -o-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+    -webkit-transition: all ease 0.5s;
+}
+
+.contactButton:hover {
+    transform: scale(1.05);
 }

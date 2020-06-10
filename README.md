@@ -3,7 +3,7 @@
     FrontEnd( React.js )
 
     - telas
-     - home ( )
+     - home (x)
      - login ( )
      - cadastro ( )
      - perfil user ( )
