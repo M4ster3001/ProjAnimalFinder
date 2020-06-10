@@ -3,10 +3,10 @@
     FrontEnd( React.js )
 
     - telas
-     - home (x)
-     - login ( )
-     - cadastro ( )
-     - perfil user ( )
-     - show animal ( )
-     - cadastro desaparecido/ edit ( )
+     - home ( ) [ visual(x), integração() ] 
+     - login ( ) [ visual(x), integração() ]
+     - cadastro ( ) [ visual(x), integração() ]
+     - perfil user ( ) [ visual(), integração() ]
+     - show animal ( ) [ visual(), integração() ]
+     - cadastro desaparecido/ edit ( ) [ visual(x), integração() ]
      - 

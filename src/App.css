@@ -20,10 +20,6 @@ a, button {
   cursor: pointer;
 }
 
-*:focus {
-  border: #59bfff solid 1px;
-}
-
 .pageContainer {
   display: flex;
   max-width: 1200px;
@@ -46,4 +42,46 @@ a, button {
 
 ul {
   list-style: none;
+}
+
+form .inputAreaLog input:not([type="checkbox"]), form select {
+    width: 100%;
+    height: 40px;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 0 24px;
+    outline: 0;
+}
+
+form .inputAreaReg input:not([type="checkbox"]), form select {
+  width: 80%;
+  height: 40px;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0 24px;
+  outline: 0;
+}
+
+form .inputAreaReg {
+  display: flex;
+}
+
+form .inputAreaReg label {
+  margin-right: 10px;
+  flex: 1;
+  margin-top: 20px;
+}
+
+.inputAreaLog, .inputAreaReg  {
+  margin-bottom: 20px;
+}
+
+.inputAreaLog, .inputAreaReg input {
+  margin-top: 10px;
+}
+
+.inputAreaLog input:focus, .inputAreaReg input:focus {
+  border: 1px solid #59bfff!important;
 }

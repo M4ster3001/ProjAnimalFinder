@@ -4,7 +4,7 @@ import {  } from "react-icons/fi";
  
 import './styles.css';
 
-const logged = false;
+const logged = true;
 
 const Header: React.FunctionComponent = () => {
 
@@ -26,7 +26,7 @@ const Header: React.FunctionComponent = () => {
                             <Link to="/newmissing" className="button"> Novo caso</Link>
                         </li>
                         <li>
-                            <Link to="/profile">Meus dados</Link>
+                            <Link to="/profile">Meu perfil</Link>
                         </li>
                         <li>
                             <button className="noButton" onClick={()=>{}}>Sair</button>
