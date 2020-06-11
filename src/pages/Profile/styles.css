@@ -28,9 +28,10 @@
 }
 
 .ProfileArea {
+    flex: 1;
     margin: auto;
     margin-top: 35px;
-    width: 400px;
+    max-width: 400px;
     border-radius: 5px;
     border: 1px solid #ccc;
     padding: 25px;
@@ -39,6 +40,16 @@
     -webkit-box-shadow: 2px 4px 4px 1px #aaa;
     -moz-box-shadow: 2px 4px 4px 1px #aaa;
     box-shadow: 2px 4px 4px 1px #aaa;
+}
+
+.registerAnimals {
+    flex: 1;
+    margin: 30px 0px 0 40px;
+}
+
+.Left {
+    float: left;
+    width: 40%;
 }
 
 .buttonProfile {

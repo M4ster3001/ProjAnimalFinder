@@ -1,7 +1,10 @@
-import React from 'react';
+/* eslint-disable jsx-a11y/alt-text */
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
  
 import './styles.css';
+
+import missingImage from '../../../images/missingImage.png';
 
 interface Animal {
     id: number;
@@ -10,16 +13,18 @@ interface Animal {
     info: string;
     city: string;
     state: string;
+    status?: boolean;
     url_image: string;
+    styles?:string;
 }
 
 const Cards: React.FunctionComponent<Animal> = ( props ) => {
-    console.log( props );
+
     return(
-        <div className="cardArea">
-            <div className="cardHeader">Desaparecido</div>
+        <div className={ props.styles === 'left' ? 'cardArea Left' : 'cardArea' }>
+            <div className="cardHeader">{ props.status === true ? 'Encontrado' : 'Desaparecido' }</div>
             <div className="cardImg">
-                <img src="http://192.168.10.102:3333/uploads/doguinho.jpg" alt="Doguinho" />
+                <img src={ props.url_image } />
             </div>
             <div className="body">
                 <p className="cardName">Nome: <b>{ props.name }</b></p>

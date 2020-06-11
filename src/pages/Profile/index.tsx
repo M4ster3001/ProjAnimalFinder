@@ -3,7 +3,6 @@ import { ToastProvider } from 'react-toast-notifications';
 import './styles.css';
 import { api } from '../../services/api';
 
-import logo from '../../images/logoLogin.png'
 import Cards from '../../components/partials/Cards';
 
 const Profile = () => {
@@ -93,9 +92,18 @@ const Profile = () => {
 
         const { id, user_name, email, phone, old_password, password, confirm_password } = formData;
 
+        if( password && !old_password ) {
+            setError( 'É necessário colocar a senha antiga' )
+            setDisabled( false );
+
+            return
+        }
+
         if( password !== confirm_password ) {
+
             setError( 'Senhas não iguais!!!' )
             setDisabled( false );
+
             return
         }
         
@@ -110,6 +118,7 @@ const Profile = () => {
 
                 if( response.data.error ) {
                     setError( response.data.error )
+
                     return;
                 }
 
@@ -148,9 +157,6 @@ const Profile = () => {
             { error &&
                 <div className="error-message">{ error }</div>
             }
-            <div className="logoProfile">
-                <img src={ logo } alt="LogoAnimal" />
-            </div>
 
             <div className="ProfileArea">
                 <div className="headerProfile">
@@ -207,8 +213,7 @@ const Profile = () => {
                                 id="old_password" 
                                 minLength={ 6 }
                                 onChange={ handleInputChange } 
-                                disabled={disabled}
-                                required 
+                                disabled={disabled}                                
                             />
                         </div>
 
@@ -220,8 +225,7 @@ const Profile = () => {
                                 id="password" 
                                 minLength={ 6 }
                                 onChange={ handleInputChange } 
-                                disabled={disabled}
-                                required 
+                                disabled={disabled}                                
                             />
                         </div>
 
@@ -233,8 +237,7 @@ const Profile = () => {
                                 id="confirm_password"
                                 minLength={ 6 } 
                                 onChange={ handleInputChange }
-                                disabled={disabled} 
-                                required 
+                                disabled={disabled}                                  
                             />
                         </div>
 
@@ -246,9 +249,11 @@ const Profile = () => {
 
             </div>
 
-            { animals.map( ( animal, key ) =>            
-                <Cards key={ key } { ...animal } />          
-            )}
+            <div className="registerAnimals">
+                { animals.map( ( animal, key ) =>            
+                    <Cards key={ key } styles={ 'left' } { ...animal } />          
+                )}
+            </div>
         </div>
     );
 
