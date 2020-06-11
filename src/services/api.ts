@@ -1,14 +1,15 @@
 import axios from 'axios';
 import Cookies from 'js-cookie'
+//const token = Buffer.from(`${Cookies.get( 'token' )}`).toString('base64')
+const token = Cookies.get( 'token' );
 
 export const api = axios.create({
     baseURL: 'http://localhost:3333/',
     timeout: 30000,
     withCredentials: true,
     headers: {
-        'Accept': '*/*',
         'Content-Type': 'application/json; charset=utf-8',
-        'Authorization': `Bearer ${Cookies.get( 'token' )}`,
+        'Authorization': `Bearer ${token}`
     },
 })
 

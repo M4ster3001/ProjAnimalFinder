@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 
 import RouteHandler from './components/RouteHandler'; 
 
@@ -19,7 +19,7 @@ const Routes = () => {
             <RouteHandler component={ Login } path="/login" />
             <RouteHandler component={ NewUser } path="/register" />
             <RouteHandler private component={ NewMissing } path="/newmissing" />
-            <RouteHandler private component={ Profile } path="/profile/:id" />
+            <RouteHandler private component={ Profile } path="/profile" />
             <RouteHandler> <NotFound /> </RouteHandler>
         </Switch>
     );

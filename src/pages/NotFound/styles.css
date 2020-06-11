@@ -1,3 +1,16 @@
-.container-notfound-body {
+.notfound-body {
     display: flex;
+    border: unset;
+    background-color: transparent;
+    width: 100%;
+
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.notfound-body img {
+    flex: 1;
+    position: relative;
 }

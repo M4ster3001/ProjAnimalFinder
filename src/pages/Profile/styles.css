@@ -1,5 +1,63 @@
-.headerArea{
-    height: 60px;
-    border-bottom: 1px solid #CCC;
-    background-color: #578EBE;
+.logoProfile {
+    position: absolute;
+    top: 85px;
+    margin-left: -106px;
+    transform: rotate(-6deg);
+    width: 100px;
+    height: 100px;
+}
+
+.logoProfile img {
+    width: 100px;
+    height: 100px;
+}
+
+.headerProfile {
+    border-bottom: 1px solid #000;
+    margin-bottom: 10px;
+}
+
+.headerProfile p {
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #fff;
+}
+
+.ProfileArea {
+    margin: auto;
+    margin-top: 35px;
+    width: 300px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 25px;
+    background-color: rgba( 29, 117, 225, 0.5 );
+
+    -webkit-box-shadow: 2px 4px 4px 1px #aaa;
+    -moz-box-shadow: 2px 4px 4px 1px #aaa;
+    box-shadow: 2px 4px 4px 1px #aaa;
+}
+
+.buttonProfile {
+    padding: 10px 30px;
+    border-radius: 8px;
+    color: #fafafa;
+    background-color: #1BBC9B;
+    border: 1px solid #ccc;
+    text-transform: uppercase;
+
+    transition: all ease 0.5s;
+    -o-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+    -webkit-transition: all ease 0.5s;
+    margin-top: 20px;
+}
+
+.bodyProfile .inputArea label {
+    color: #fff;
+}
+
+.bodyProfile .actionsBtn {
+    border-top: 1px solid #000;
 }
