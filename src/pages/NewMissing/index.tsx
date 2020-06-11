@@ -7,10 +7,8 @@ import Dropzone, { IDropzoneProps, ILayoutProps, IFileWithMeta, StatusValue, IUp
 import { uniqueId } from 'lodash';
 import filesize from 'filesize';
 
-import useApi from '../../services/api'
-
 import './styles.css';
-import api from '../../services/api';
+import { api } from '../../services/api';
 
 interface State {
     uf: string;

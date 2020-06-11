@@ -1,9 +1,46 @@
-import React from 'react';
+import React, { useState, FormEvent } from 'react';
 import './styles.css';
 
+import { apiLogin } from '../../services/api';
+
 import logo from '../../images/logoLogin.png'
+import { doLogin } from '../../services/authHandler';
 
 const Login = () => {
+
+    const [ email, SetEmail ] = useState('');
+    const [ password, setPassword ] = useState('');
+    const [ disable, setDisable ] = useState(false);
+
+    async function handlerSubmit( e: FormEvent ){
+
+        e.preventDefault();
+
+        await apiLogin.post( '/login', {
+            email,
+            password,
+        } ).then((response) => {
+            
+            doLogin( response.data.token )
+            window.location.href = '/';
+
+        }).catch( (error) => {
+
+            if ( error.response ) {
+
+              console.log( error.response.data.message );
+
+            } else if ( error.request ) {
+
+                console.log( error.request );
+
+            } else {
+
+                console.log(`Error ${ error.message }`);
+            }
+
+        }) 
+    }
 
     return(
         <div className="pageContainer">
@@ -17,13 +54,16 @@ const Login = () => {
                 </div>
 
                 <div className="bodyLogin">
-                    <form>
+                    <form onSubmit={ handlerSubmit }>
                         <div className="inputAreaLog">
                             <label htmlFor="email" >Email</label>
                             <input 
                                 type="email" 
                                 name="email" 
                                 id="email" 
+                                onChange={( e ) => { SetEmail( e.target.value ) }}
+                                required
+                                disabled={disable}
                             />
                         </div>
                         <div className="inputAreaLog">
@@ -31,7 +71,11 @@ const Login = () => {
                             <input 
                                 type="password" 
                                 name="password" 
-                                id="password" 
+                                id="password"
+                                minLength={ 6 }  
+                                onChange={( e ) => { setPassword( e.target.value ) }}
+                                required
+                                disabled={disable}
                             />
                         </div>
 

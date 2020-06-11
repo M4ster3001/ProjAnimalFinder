@@ -5,6 +5,7 @@
     transform: rotate(-6deg);
     width: 100px;
     height: 100px;
+    
 }
 
 .logoNewUser img {
@@ -61,4 +62,8 @@
 
 .bodyNewUser .actionsBtn {
     border-top: 1px solid #000;
+}
+
+.bodyLogin .inputAreaLog #email, .bodyLogin .inputAreaLog #password {
+    text-align: center;
 }

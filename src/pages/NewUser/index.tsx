@@ -1,7 +1,7 @@
 import React, { FormEvent, useState, ChangeEvent } from 'react';
 import { ToastProvider } from 'react-toast-notifications';
 import './styles.css';
-import api from '../../services/api';
+import { apiLogin } from '../../services/api';
 
 import { doLogin, doLogout } from '../../services/authHandler';
 
@@ -49,7 +49,7 @@ const NewUser = () => {
         }
         
         try {
-            const teste = await api.post( 'users/register', {
+            await apiLogin.post( 'users/register', {
                 user_name,
                 email,
                 phone,
@@ -105,7 +105,8 @@ const NewUser = () => {
                             <input 
                                 type="text" 
                                 name="user_name" 
-                                id="user_name" 
+                                id="user_name"
+                                minLength={ 4 }  
                                 onChange={ handleInputChange }
                                 disabled={disabled} 
                                 required
@@ -142,6 +143,7 @@ const NewUser = () => {
                                 type="password" 
                                 name="password" 
                                 id="password" 
+                                minLength={ 6 }
                                 onChange={ handleInputChange } 
                                 disabled={disabled}
                                 required 
@@ -153,7 +155,8 @@ const NewUser = () => {
                             <input 
                                 type="password" 
                                 name="confirm_password" 
-                                id="confirm_password" 
+                                id="confirm_password"
+                                minLength={ 6 } 
                                 onChange={ handleInputChange }
                                 disabled={disabled} 
                                 required 
