@@ -3,8 +3,18 @@ import { Link } from 'react-router-dom';
  
 import './styles.css';
 
-const Cards: React.FunctionComponent = ( props ) => {
+interface Animal {
+    id: number;
+    name: string;
+    age: string;
+    info: string;
+    city: string;
+    state: string;
+    url_image: string;
+}
 
+const Cards: React.FunctionComponent<Animal> = ( props ) => {
+    console.log( props );
     return(
         <div className="cardArea">
             <div className="cardHeader">Desaparecido</div>
@@ -12,10 +22,10 @@ const Cards: React.FunctionComponent = ( props ) => {
                 <img src="http://192.168.10.102:3333/uploads/doguinho.jpg" alt="Doguinho" />
             </div>
             <div className="body">
-                <p className="cardName">Nome: <b>Doguinho</b></p>
-                <p className="cardAge">Idade: 2 anos</p>
-                <p className="cardLastPlace">Último local: Lins - SP</p>
-                <p className="cardInfo">Ele é muito docil, porém, muito distraido</p>
+                <p className="cardName">Nome: <b>{ props.name }</b></p>
+                <p className="cardAge">Idade: { props.age }</p>
+                <p className="cardLastPlace">Último local: { props.city } - { props.state }</p>
+                <p className="cardInfo">{ props.info }</p>
             </div>
             <div className="footer">
                 <button className="contactButton">Encontrei ele</button>

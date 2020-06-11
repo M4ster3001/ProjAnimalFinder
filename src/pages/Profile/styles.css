@@ -1,10 +1,11 @@
 .logoProfile {
     position: absolute;
     top: 85px;
-    margin-left: -106px;
+    margin-left: -155px;
     transform: rotate(-6deg);
     width: 100px;
     height: 100px;
+    
 }
 
 .logoProfile img {
@@ -20,6 +21,7 @@
 .headerProfile p {
     font-size: 20px;
     margin-bottom: 20px;
+    margin-left: 5px;
     text-transform: uppercase;
     font-weight: 700;
     color: #fff;
@@ -28,7 +30,7 @@
 .ProfileArea {
     margin: auto;
     margin-top: 35px;
-    width: 300px;
+    width: 400px;
     border-radius: 5px;
     border: 1px solid #ccc;
     padding: 25px;
@@ -43,7 +45,7 @@
     padding: 10px 30px;
     border-radius: 8px;
     color: #fafafa;
-    background-color: #1BBC9B;
+    background-color: #26C281;
     border: 1px solid #ccc;
     text-transform: uppercase;
 
@@ -60,4 +62,8 @@
 
 .bodyProfile .actionsBtn {
     border-top: 1px solid #000;
+}
+
+.bodyLogin .inputAreaLog #email, .bodyLogin .inputAreaLog #password {
+    text-align: center;
 }

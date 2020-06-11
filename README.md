@@ -3,7 +3,7 @@
     FrontEnd( React.js )
 
     - telas
-     - home ( ) [ visual(x), integração() ] 
+     - home ( ) [ visual(x), integração( x ), button encontrei ele() ] 
      - login ( ) [ visual(x), integração(x), melhorar()[ mudar token para jwt e mudar como são exibidos os erros ] ]
      - cadastro ( ) [ visual(x), integração() [ checar erro na validação do e-mail e mudar como são exibidos os erros ] ]
      - perfil user ( ) [ visual(), integração() ]

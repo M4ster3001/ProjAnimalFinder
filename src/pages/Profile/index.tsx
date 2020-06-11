@@ -4,30 +4,50 @@ import './styles.css';
 import { api } from '../../services/api';
 
 import logo from '../../images/logoLogin.png'
+import Cards from '../../components/partials/Cards';
 
 const Profile = () => {
 
     const [disabled, setDisabled] = useState(false);
     const [error, setError] = useState('');
 
+    const [ id, setId ] = useState('');
     const [ user_name, SetUserName ] = useState('');
     const [ email, SetEmail ] = useState('');
     const [ phone, SetPhone ] = useState('');
+    const [ old_password, SetOldPassword ] = useState('');
     const [ password, SetPassword ] = useState('');
     const [ confirm_password, SetConfPassword ] = useState('');
 
+    const [ animals, setAnimals ] = useState([]);
+
     const [ formData, setFormData ] = useState({
+        id,
         user_name,
         email,
         phone,
+        old_password,
         password,
         confirm_password
     });
 
     useEffect( () => {
         api.get( 'users/profile' ).then( resp => {
-            /*console.log( res )
-            setFormData( resp.data );*/
+            
+            setFormData(
+                {
+                    id: resp.data.id,
+                    user_name: resp.data.name,
+                    email: resp.data.email,
+                    phone: resp.data.phone,
+                    old_password: '',
+                    password: '',
+                    confirm_password: '',
+                }
+            );
+
+            setId( resp.data.id );
+
         } ).catch( (error) => {
 
             if ( error.response ) {
@@ -47,6 +67,14 @@ const Profile = () => {
 
     }, [] )
 
+    useEffect( () => {
+        api.get( `animals` ).then( ( resp ) => {
+            
+            setAnimals( resp.data )
+        });
+
+    }, [id] )
+
     function handleInputChange( e: ChangeEvent<HTMLInputElement> ){
 
         const { id, value } = e.target;
@@ -61,7 +89,9 @@ const Profile = () => {
 
         e.preventDefault();
         setDisabled( true );
-        const { user_name, email, phone, password, confirm_password } = formData;
+        setError( '' );
+
+        const { id, user_name, email, phone, old_password, password, confirm_password } = formData;
 
         if( password !== confirm_password ) {
             setError( 'Senhas não iguais!!!' )
@@ -70,34 +100,43 @@ const Profile = () => {
         }
         
         try {
-            await api.post( 'users/register', {
+            await api.put( `users/update/${id}`, {
                 user_name,
                 email,
                 phone,
+                old_password,
                 password
             } ).then((response) => {
-                    
+
+                if( response.data.error ) {
+                    setError( response.data.error )
+                    return;
+                }
+
                 window.location.href = '/profile';
 
             }).catch( (error) => {
 
                 if ( error.response ) {
 
-                  alert( error.response.data.message );
+                    setError( error.response.data.message );
 
                 } else if ( error.request ) {
 
-                    alert( error.request );
+                    setError( error.request );
 
                 } else {
 
-                    alert(`Error ${ error.message }`);
+                    setError( error.message );
+                    
                 }
+                return;
 
             })
 
         } catch( er ) {
-            alert( er );
+
+            setError( er );
         }
 
         setDisabled( false );
@@ -107,7 +146,7 @@ const Profile = () => {
     return(
         <div className="pageContainer">
             { error &&
-                error
+                <div className="error-message">{ error }</div>
             }
             <div className="logoProfile">
                 <img src={ logo } alt="LogoAnimal" />
@@ -115,7 +154,7 @@ const Profile = () => {
 
             <div className="ProfileArea">
                 <div className="headerProfile">
-                    <p>Cadastrar Dados</p>
+                    <p>Dados</p>
                 </div>
 
                 <div className="bodyProfile">
@@ -129,6 +168,7 @@ const Profile = () => {
                                 minLength={ 4 }  
                                 onChange={ handleInputChange }
                                 disabled={disabled} 
+                                value={ formData.user_name }
                                 required
                             />
                         </div>
@@ -141,6 +181,7 @@ const Profile = () => {
                                 id="email" 
                                 onChange={ handleInputChange }
                                 disabled={disabled}
+                                value={ formData.email }
                                 required  
                             />
                         </div>
@@ -152,7 +193,21 @@ const Profile = () => {
                                 name="phone" 
                                 id="phone"
                                 onChange={ handleInputChange }
-                                disabled={disabled} 
+                                disabled={disabled}
+                                value={ formData.phone } 
+                                required 
+                            />
+                        </div>
+
+                        <div className="inputAreaReg">
+                            <label htmlFor="password" >Senha antiga</label>
+                            <input 
+                                type="password" 
+                                name="old_password" 
+                                id="old_password" 
+                                minLength={ 6 }
+                                onChange={ handleInputChange } 
+                                disabled={disabled}
                                 required 
                             />
                         </div>
@@ -190,6 +245,10 @@ const Profile = () => {
                 </div>
 
             </div>
+
+            { animals.map( ( animal, key ) =>            
+                <Cards key={ key } { ...animal } />          
+            )}
         </div>
     );
 

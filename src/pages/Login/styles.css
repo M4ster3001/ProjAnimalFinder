@@ -1,36 +1,34 @@
-.logoNewUser {
+.logoLogin {
     position: absolute;
     top: 85px;
-    margin-left: -155px;
+    margin-left: -106px;
     transform: rotate(-6deg);
     width: 100px;
     height: 100px;
-    
 }
 
-.logoNewUser img {
+.logoLogin img {
     width: 100px;
     height: 100px;
 }
 
-.headerNewUser {
+.headerLogin {
     border-bottom: 1px solid #000;
     margin-bottom: 10px;
 }
 
-.headerNewUser p {
+.headerLogin p {
     font-size: 20px;
     margin-bottom: 20px;
-    margin-left: 5px;
     text-transform: uppercase;
     font-weight: 700;
     color: #fff;
 }
 
-.NewUserArea {
+.loginArea {
     margin: auto;
     margin-top: 35px;
-    width: 400px;
+    width: 300px;
     border-radius: 5px;
     border: 1px solid #ccc;
     padding: 25px;
@@ -41,11 +39,11 @@
     box-shadow: 2px 4px 4px 1px #aaa;
 }
 
-.buttonNewUser {
+.buttonLogin {
     padding: 10px 30px;
     border-radius: 8px;
     color: #fafafa;
-    background-color: #26C281;
+    background-color: #1BBC9B;
     border: 1px solid #ccc;
     text-transform: uppercase;
 
@@ -56,14 +54,11 @@
     margin-top: 20px;
 }
 
-.bodyNewUser .inputArea label {
+.bodyLogin .inputArea label {
     color: #fff;
 }
 
-.bodyNewUser .actionsBtn {
+.bodyLogin .actionsBtn {
     border-top: 1px solid #000;
 }
 
-.bodyLogin .inputAreaLog #email, .bodyLogin .inputAreaLog #password {
-    text-align: center;
-}
