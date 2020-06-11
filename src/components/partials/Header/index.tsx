@@ -1,12 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {  } from "react-icons/fi";
- 
 import './styles.css';
 
-const logged = false;
+import { isLogged, doLogout } from '../../../services/authHandler'; 
 
 const Header: React.FunctionComponent = () => {
+    const logged = isLogged();
+
+    const handleLogout = () => {
+
+        doLogout();
+        window.location.href = '/';
+    }
 
     return(
         <div className="headerArea">
@@ -29,7 +34,7 @@ const Header: React.FunctionComponent = () => {
                             <Link to="/profile">Meu perfil</Link>
                         </li>
                         <li>
-                            <button className="noButton" onClick={()=>{}}>Sair</button>
+                            <button className="noButton" onClick={handleLogout}>Sair</button>
                         </li>
                     </>
                     }

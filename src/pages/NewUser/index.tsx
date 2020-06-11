@@ -1,6 +1,9 @@
 import React, { FormEvent, useState, ChangeEvent } from 'react';
+import { ToastProvider } from 'react-toast-notifications';
 import './styles.css';
 import api from '../../services/api';
+
+import { doLogin, doLogout } from '../../services/authHandler';
 
 import logo from '../../images/logoLogin.png'
 
@@ -37,7 +40,7 @@ const NewUser = () => {
 
         e.preventDefault();
         setDisabled( true );
-        const { user_name, email, password, confirm_password } = formData;
+        const { user_name, email, phone, password, confirm_password } = formData;
 
         if( password !== confirm_password ) {
             setError( 'Senhas não iguais!!!' )
@@ -45,19 +48,37 @@ const NewUser = () => {
             return
         }
         
-        await api.post( 'user/register', {
-            user_name,
-            email,
-            phone,
-            password
-        } ).then( resp => {
+        try {
+            const teste = await api.post( 'users/register', {
+                user_name,
+                email,
+                phone,
+                password
+            } ).then((response) => {
+                    
+                doLogin( response.data );
+                window.location.href = '/';
 
-            window.location.href = '/login';
+            }).catch( (error) => {
 
-        } ).catch( err => {
+                if ( error.response ) {
 
-            setError( err );
-        } )
+                  alert( error.response.data.message );
+
+                } else if ( error.request ) {
+
+                    alert( error.request );
+
+                } else {
+
+                    alert(`Error ${ error.message }`);
+                }
+
+            })
+
+        } catch( er ) {
+            alert( er );
+        }
 
         setDisabled( false );
 
@@ -66,7 +87,7 @@ const NewUser = () => {
     return(
         <div className="pageContainer">
             { error &&
-                <div className="error-message">{ error }</div>
+                error
             }
             <div className="logoNewUser">
                 <img src={ logo } alt="LogoAnimal" />
@@ -87,6 +108,7 @@ const NewUser = () => {
                                 id="user_name" 
                                 onChange={ handleInputChange }
                                 disabled={disabled} 
+                                required
                             />
                         </div>
 
@@ -97,7 +119,8 @@ const NewUser = () => {
                                 name="email" 
                                 id="email" 
                                 onChange={ handleInputChange }
-                                disabled={disabled}  
+                                disabled={disabled}
+                                required  
                             />
                         </div>
 
@@ -108,7 +131,8 @@ const NewUser = () => {
                                 name="phone" 
                                 id="phone"
                                 onChange={ handleInputChange }
-                                disabled={disabled}  
+                                disabled={disabled} 
+                                required 
                             />
                         </div>
 
@@ -119,7 +143,8 @@ const NewUser = () => {
                                 name="password" 
                                 id="password" 
                                 onChange={ handleInputChange } 
-                                disabled={disabled} 
+                                disabled={disabled}
+                                required 
                             />
                         </div>
 
@@ -127,10 +152,11 @@ const NewUser = () => {
                             <label htmlFor="password" >Confirmar Senha</label>
                             <input 
                                 type="password" 
-                                name="password" 
-                                id="password" 
+                                name="confirm_password" 
+                                id="confirm_password" 
                                 onChange={ handleInputChange }
-                                disabled={disabled}  
+                                disabled={disabled} 
+                                required 
                             />
                         </div>
 

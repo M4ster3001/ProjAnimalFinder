@@ -13,6 +13,7 @@
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
+    "@types/react-toast-notifications": "^2.4.0",
     "@types/styled-components": "^5.1.0",
     "axios": "^0.19.2",
     "filesize": "^6.1.0",
@@ -25,6 +26,7 @@
     "react-icons": "^3.10.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-toast-notifications": "^2.4.0",
     "styled-components": "^5.1.1",
     "typescript": "^3.7.5"
   },
