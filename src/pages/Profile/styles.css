@@ -47,10 +47,6 @@
     margin: 30px 0px 0 40px;
 }
 
-.Left {
-    float: left;
-    width: 40%;
-}
 
 
 .bodyProfile .inputArea label {
@@ -63,4 +59,43 @@
 
 .bodyLogin .inputAreaLog #email, .bodyLogin .inputAreaLog #password {
     text-align: center;
+}
+
+@media only screen and ( max-width: 1140px ) {
+
+
+    .ProfileArea {
+        margin-left: 5px;
+    }
+}
+
+@media only screen and ( max-width: 995px ) {
+
+
+    .ProfileArea {
+       width: 50%;
+       max-width: -webkit-fill-available;
+       margin-left: 20px !important;
+       margin-right: 20px !important;
+    }
+}
+
+@media only screen and ( max-width: 800px ) {
+
+
+    .ProfileArea {
+        min-width: -webkit-fill-available;
+        max-width: unset;
+    }
+}
+
+
+@media only screen and ( max-width: 430px ) {
+
+
+    .ProfileArea {
+       width: 100%;
+       margin-left: 10px !important;
+       margin-right: 10px !important;
+    }
 }

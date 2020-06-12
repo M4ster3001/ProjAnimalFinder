@@ -86,3 +86,53 @@ a:hover, .noButton:hover {
 #id svg {
     color: #000;
 }
+
+@media only screen and ( max-width: 600px ) {
+
+
+    .button {
+        width: max-content;
+    }
+}
+
+@media only screen and ( max-width: 480px ) {
+
+    .headerArea {
+        width: -webkit-fill-available;
+    }
+
+    #id svg {
+       display: none;
+    }
+
+    sidebar {
+        margin-right: 5px;
+    }
+
+    .logo {
+        margin-left: 5px;
+    }
+
+    .button {
+        width: -webkit-fill-available;
+    }
+}
+
+@media only screen and ( max-width: 400px ) {
+
+    #id svg {
+        display: inline-block;
+    }
+
+    .button label {
+        display: none;
+    }
+
+    .headerArea .button {
+        padding: 10px 15px; 
+    }
+
+    .sidebar ul li a svg {
+        margin-right: unset;
+    }
+}

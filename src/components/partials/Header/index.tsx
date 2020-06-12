@@ -32,13 +32,13 @@ const Header: React.FunctionComponent = () => {
                         <li>
                             <Link to="/newmissing" className="button">
                                 <span id="id"><AiFillNotification /></span> 
-                                Novo caso
+                                <label>Novo caso</label>
                             </Link>
                         </li>
                         <li>
                             <Link to="/profile" className="button">
                                 <span id="id"><RiFolderUserLine /></span> 
-                                Meu perfil
+                                <label>Meu perfil</label>
                             </Link>
                         </li>
                         <li>
