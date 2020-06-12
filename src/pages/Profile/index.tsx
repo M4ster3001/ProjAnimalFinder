@@ -4,12 +4,15 @@ import { ToastProvider } from 'react-toast-notifications';
 import './styles.css';
 import { api } from '../../services/api';
 
+import Notification from '../../components/partials/Notification';
+
 import Cards from '../../components/partials/Cards';
 
 const Profile = () => {
 
     const [disabled, setDisabled] = useState(false);
-    const [error, setError] = useState('');
+    const [ error, setError ] = useState('');
+    const [ open, setOpen ] = useState(false);
 
     const [ id, setId ] = useState('');
     const [ user_name, SetUserName ] = useState('');
@@ -52,26 +55,34 @@ const Profile = () => {
 
             if ( error.response ) {
 
-              console.log( error.response.data.message );
+            setOpen(true);
+            setError(error.response.data.message);
 
             } else if ( error.request ) {
 
-                console.log( error.request );
+                setOpen(true);
+                setError(`Error ${ error.request }`);
 
             } else {
 
-                console.log(`Error ${ error.message }`);
+                setOpen(true);
+                setError(`Error ${ error.message }`);
             }
 
-        }) 
+        })
 
     }, [] )
 
     useEffect( () => {
-        api.get( `animals/user/${id}` ).then( ( resp ) => {
-            
-            setAnimals( resp.data.lstAnimals )
-        });
+
+        if( id ) {
+
+            api.get( `animals/user/${id}` ).then( ( resp ) => {
+                
+                setAnimals( resp.data.lstAnimals )
+            });
+
+        }
 
     }, [id] )
 
@@ -94,7 +105,9 @@ const Profile = () => {
         const { id, user_name, email, phone, old_password, password, confirm_password } = formData;
 
         if( password && !old_password ) {
+            
             setError( 'É necessário colocar a senha antiga' )
+            setOpen( true )
             setDisabled( false );
 
             return
@@ -103,6 +116,7 @@ const Profile = () => {
         if( password !== confirm_password ) {
 
             setError( 'Senhas não iguais!!!' )
+            setOpen( true )
             setDisabled( false );
 
             return
@@ -119,6 +133,7 @@ const Profile = () => {
 
                 if( response.data.error ) {
                     setError( response.data.error )
+                    setOpen( true );
 
                     return;
                 }
@@ -130,15 +145,17 @@ const Profile = () => {
                 if ( error.response ) {
 
                     setError( error.response.data.message );
+                    setOpen( true );
 
                 } else if ( error.request ) {
 
                     setError( error.request );
+                    setOpen( true );
 
                 } else {
 
                     setError( error.message );
-                    
+                    setOpen( true );
                 }
                 return;
 
@@ -146,7 +163,8 @@ const Profile = () => {
 
         } catch( er ) {
 
-            setError( er );
+            setError( 'Ocorreu um erro, tente novamente' );
+            setOpen( true );
         }
 
         setDisabled( false );
@@ -154,111 +172,114 @@ const Profile = () => {
     }
 
     return(
-        <div className="pageContainer">
+        <>
             { error &&
-                <div className="error-message">{ error }</div>
+                <Notification severity="error" open={open} message={error}/>           
             }
 
-            <div className="ProfileArea">
-                <div className="headerProfile">
-                    <p>Dados</p>
+            <div className="pageContainer">
+
+                <div className="ProfileArea">
+                    <div className="headerProfile">
+                        <p>Dados</p>
+                    </div>
+
+                    <div className="bodyProfile">
+                        <form onSubmit={ handleRegister }>
+                            <div className="inputAreaReg">
+                                <label htmlFor="name" >Nome</label>
+                                <input 
+                                    type="text" 
+                                    name="user_name" 
+                                    id="user_name"
+                                    minLength={ 4 }  
+                                    onChange={ handleInputChange }
+                                    disabled={disabled} 
+                                    value={ formData.user_name }
+                                    required
+                                />
+                            </div>
+
+                            <div className="inputAreaReg">
+                                <label htmlFor="email" >Email</label>
+                                <input 
+                                    type="email" 
+                                    name="email" 
+                                    id="email" 
+                                    onChange={ handleInputChange }
+                                    disabled={disabled}
+                                    value={ formData.email }
+                                    required  
+                                />
+                            </div>
+
+                            <div className="inputAreaReg">
+                                <label htmlFor="phone" >Telefone</label>
+                                <input 
+                                    type="text"
+                                    name="phone" 
+                                    id="phone"
+                                    onChange={ handleInputChange }
+                                    disabled={disabled}
+                                    value={ formData.phone } 
+                                    required 
+                                />
+                            </div>
+
+                            <div className="inputAreaReg">
+                                <label htmlFor="password" >Senha antiga</label>
+                                <input 
+                                    type="password" 
+                                    name="old_password" 
+                                    id="old_password" 
+                                    minLength={ 6 }
+                                    onChange={ handleInputChange } 
+                                    disabled={disabled}                                
+                                />
+                            </div>
+
+                            <div className="inputAreaReg">
+                                <label htmlFor="password" >Senha</label>
+                                <input 
+                                    type="password" 
+                                    name="password" 
+                                    id="password" 
+                                    minLength={ 6 }
+                                    onChange={ handleInputChange } 
+                                    disabled={disabled}                                
+                                />
+                            </div>
+
+                            <div className="inputAreaReg">
+                                <label htmlFor="password" >Confirmar Senha</label>
+                                <input 
+                                    type="password" 
+                                    name="confirm_password" 
+                                    id="confirm_password"
+                                    minLength={ 6 } 
+                                    onChange={ handleInputChange }
+                                    disabled={disabled}                                  
+                                />
+                            </div>
+
+                            <div className="actionsBtn">
+                                <button className="buttonProfile">
+                                    <span id="icon"><MdPersonAdd size={ 16 }/></span>
+                                    Cadastrar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
 
-                <div className="bodyProfile">
-                    <form onSubmit={ handleRegister }>
-                        <div className="inputAreaReg">
-                            <label htmlFor="name" >Nome</label>
-                            <input 
-                                type="text" 
-                                name="user_name" 
-                                id="user_name"
-                                minLength={ 4 }  
-                                onChange={ handleInputChange }
-                                disabled={disabled} 
-                                value={ formData.user_name }
-                                required
-                            />
-                        </div>
-
-                        <div className="inputAreaReg">
-                            <label htmlFor="email" >Email</label>
-                            <input 
-                                type="email" 
-                                name="email" 
-                                id="email" 
-                                onChange={ handleInputChange }
-                                disabled={disabled}
-                                value={ formData.email }
-                                required  
-                            />
-                        </div>
-
-                        <div className="inputAreaReg">
-                            <label htmlFor="phone" >Telefone</label>
-                            <input 
-                                type="text"
-                                name="phone" 
-                                id="phone"
-                                onChange={ handleInputChange }
-                                disabled={disabled}
-                                value={ formData.phone } 
-                                required 
-                            />
-                        </div>
-
-                        <div className="inputAreaReg">
-                            <label htmlFor="password" >Senha antiga</label>
-                            <input 
-                                type="password" 
-                                name="old_password" 
-                                id="old_password" 
-                                minLength={ 6 }
-                                onChange={ handleInputChange } 
-                                disabled={disabled}                                
-                            />
-                        </div>
-
-                        <div className="inputAreaReg">
-                            <label htmlFor="password" >Senha</label>
-                            <input 
-                                type="password" 
-                                name="password" 
-                                id="password" 
-                                minLength={ 6 }
-                                onChange={ handleInputChange } 
-                                disabled={disabled}                                
-                            />
-                        </div>
-
-                        <div className="inputAreaReg">
-                            <label htmlFor="password" >Confirmar Senha</label>
-                            <input 
-                                type="password" 
-                                name="confirm_password" 
-                                id="confirm_password"
-                                minLength={ 6 } 
-                                onChange={ handleInputChange }
-                                disabled={disabled}                                  
-                            />
-                        </div>
-
-                        <div className="actionsBtn">
-                            <button className="buttonProfile">
-                                <span id="icon"><MdPersonAdd size={ 16 }/></span>
-                                Cadastrar
-                            </button>
-                        </div>
-                    </form>
+                <div className="registerAnimals">
+                    { animals.map( ( animal, key ) =>            
+                        <Cards key={ key } styles={ 'left' } { ...animal } />          
+                    )}
                 </div>
-
             </div>
-
-            <div className="registerAnimals">
-                { animals.map( ( animal, key ) =>            
-                    <Cards key={ key } styles={ 'left' } { ...animal } />          
-                )}
-            </div>
-        </div>
+        </>
     );
 
 }
