@@ -18,6 +18,9 @@ body {
 a, button {
   text-decoration: none;
   cursor: pointer;
+  color: #fafafa;
+  font-size: 16px;
+  line-height: 16px;
 }
 
 .pageContainer {
@@ -84,4 +87,62 @@ form .inputAreaReg label {
 
 .inputAreaLog input:focus, .inputAreaReg input:focus {
   border: 1px solid #59bfff!important;
+}
+
+#icon svg {
+  margin-right: 4px;
+  width: 16px;
+  height: 16px;
+}
+
+.deleteButton {
+  color: #fafafa;
+  padding: 12px 20px;
+  font-size: 16px;
+  line-height: 18px;
+  border-radius: 8px;
+  background-color: #EF4836;
+  border: 1px solid #ccc;
+  text-transform: uppercase;
+  transition: all ease 0.5s;
+  -o-transition: all ease 0.5s;
+  -moz-transition: all ease 0.5s;
+  -webkit-transition: all ease 0.5s;
+}
+
+.altButton {
+  color: #fafafa;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 16px;
+  background-color: #4C87B9;
+  border: 1px solid #ccc;
+  text-transform: uppercase;
+  transition: all ease 0.5s;
+  -o-transition: all ease 0.5s;
+  -moz-transition: all ease 0.5s;
+  -webkit-transition: all ease 0.5s;
+}
+
+.buttonProfile {
+  padding: 10px 30px;
+  border-radius: 8px;
+  color: #fafafa;
+  background-color: #26C281;
+  border: 1px solid #ccc;
+  text-transform: uppercase;
+
+  transition: all ease 0.5s;
+  -o-transition: all ease 0.5s;
+  -moz-transition: all ease 0.5s;
+  -webkit-transition: all ease 0.5s;
+  margin-top: 20px;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
 }

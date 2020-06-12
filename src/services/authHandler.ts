@@ -8,7 +8,9 @@ export const isLogged = () => {
 
 export const doLogin = ( token: string ) => {
 
-    Cookies.set( 'token', token )
+    if( token ) {
+        Cookies.set( 'token', token )
+    }
 
 } 
 

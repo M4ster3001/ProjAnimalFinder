@@ -30,6 +30,10 @@
     font-weight: 700;
 }
 
+.cardHeaderFound {
+    color: #1BBC9B;
+}
+
 .cardImg {
     margin: auto;
     width: 270px;
@@ -57,6 +61,25 @@
     margin: 5px 0px;
 }
 
+.cardLastPlace {
+    text-transform: uppercase;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.cardInfo {
+   overflow: hidden;
+   height: 80px;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 2; /* number of lines to show */
+   -webkit-box-orient: vertical;
+}
+
+.cardInfo p
+{
+    margin-top: 5px;
+}
 .footer {
     border-top: 1px solid #000;
     margin: 0 5px;

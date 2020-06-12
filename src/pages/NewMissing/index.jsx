@@ -1,67 +1,87 @@
-import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 
-import 'react-dropzone-uploader/dist/styles.css'
-import Dropzone, { IDropzoneProps, ILayoutProps, IFileWithMeta, StatusValue, IUploadParams } from 'react-dropzone-uploader';
+import noimage from '../../images/missingImage.png';
+
+import Dropzone from 'react-dropzone'
 
 import { uniqueId } from 'lodash';
 import filesize from 'filesize';
 
 import './styles.css';
 import { api } from '../../services/api';
+import { FaSearch, FaSearchPlus } from 'react-icons/fa';
 
-interface State {
-    uf: string;
-}
-
-interface City {
-    name: string;
-}
-
-interface Blob {
-    readonly size: number;
-    readonly type: string;
-    arrayBuffer(): Promise<ArrayBuffer>;
-    slice(start?: number, end?: number, contentType?: string): Blob;
-    stream(): ReadableStream;
-    text(): Promise<string>;
-}
-
-declare var Blob: {
-    prototype: Blob;
-    new(blobParts?: BlobPart[], options?: BlobPropertyBag): Blob;
-};
-
-interface Image {
-    originalname: string;
-    preview: Blob; 
-    mimetype: string; 
-    readableSize: number;
-}
 
 const NewMissing = () => {
+
+    const { id } = useParams();
+
+    const [ dog_name, SetDogName ] = useState( '' );
+    const [ age, SetAge ] = useState( '' );
+    const [ info, SetInfo ] = useState( '' );
+    const [picture, setPicture] = useState( '' );
     
+    const [ disabled, setDisabled ]  = useState( false );
+
     const [ formData, setFormData ] = useState({
+        id: '',
         dog_name: '',
-        age: 0,
+        age: '',
         info: '',
     });
     
-    const [ selectedState, setSelectedState ] = useState('');
-    const [ selectedCity, setSelectedCity ] = useState('');
+    const [ selectedState, setSelectedState ] = useState( '' );
+    const [ selectedCity, setSelectedCity ] = useState( '' );
 
-    const [ states, setStates ] = useState<State[]>([]);
-    const [ cities, setCities ] = useState<City[]>([]);
+    const [ states, setStates ] = useState([]);
+    const [ cities, setCities ] = useState([]);
 
     const [ uploadFile, setUploadFile ] = useState([]);
 
     const [ disable, setDisable ] = useState(false);
     const [ error, setError ] = useState('');
 
+    const [file, setFile] = useState('');
+
+    useEffect( () => {
+
+        api.get( `animals/${id}` ).then( resp => {
+            console.log( resp.data )
+            setSelectedState( resp.data.state )
+
+            SetDogName( resp.data.name );
+
+            setFormData({
+                id: resp.data.id,
+                dog_name: resp.data.name,
+                age: resp.data.age,
+                info: resp.data.info,
+            });
+
+        } ).catch( (error) => {
+
+            if ( error.response ) {
+
+              console.log( error.response.data.message );
+
+            } else if ( error.request ) {
+
+                console.log( error.request );
+
+            } else {
+
+                console.log(`Error ${ error.message }`);
+            }
+
+        }) 
+
+    }, [id] )
+
     useEffect( () => {
 
         api.get( 'states' ).then( resp => {
-            console.log( resp.data );
+
             setStates( resp.data )
         });
     }, []);
@@ -70,32 +90,13 @@ const NewMissing = () => {
 
         api.get( `cities/${selectedState}` ).then( resp => {
 
+            console.log(  formData); 
             setCities( resp.data )
         } )
     }, [selectedState]);
-/*
-    const handleChangeStatus: IDropzoneProps['onSubmit'] = (files, allFiles) => {
-
-        console.log(files.map(f => f.meta))
-        console.log(allFiles)
-        allFiles.forEach(f => f.remove())
-
-    }
-*/
-
-    const handleChangeStatus = (meta:IFileWithMeta, status:StatusValue) => {
-        console.log( status )
-        console.log( meta )
-    }
-
-    const getUploadParams: IDropzoneProps['getUploadParams'] = () => (
-        {
-             url: 'http://localhost:3333/animals/register' 
-        }  
-    )
 
     
-    function handleSelectUf( e: ChangeEvent<HTMLSelectElement> ) {
+    function handleSelectUf( e ) {
         
         e.preventDefault();
         const uf = e.target.value;
@@ -103,7 +104,7 @@ const NewMissing = () => {
         setSelectedState( uf );
     }
 
-    function handleSelectCity( e: ChangeEvent<HTMLSelectElement> ) {
+    function handleSelectCity( e ) {
 
         e.preventDefault();
         const city = e.target.value;
@@ -111,7 +112,7 @@ const NewMissing = () => {
         setSelectedCity( city );
     }
 
-    function handleInputChange( e: ChangeEvent<HTMLInputElement> ) {
+    function handleInputChange( e ) {
 
         e.preventDefault();
 
@@ -122,7 +123,7 @@ const NewMissing = () => {
         }) 
     }
 
-    function handleTextChange( e: ChangeEvent<HTMLTextAreaElement> ) {
+    function handleTextChange( e ) {
 
         e.preventDefault();
 
@@ -133,7 +134,7 @@ const NewMissing = () => {
         }) 
     }
 
-    async function handleSubmit( e: FormEvent ) {
+    async function handleSubmit( e ) {
 
         e.preventDefault();
 
@@ -151,26 +152,62 @@ const NewMissing = () => {
         alert( req );
     }
 
+    const handleUpload = async (files) => {
+    
+        const fs = await files.map( file => ({
+          file,
+          id: uniqueId(),
+          name: file.name,
+          readableSize: filesize( file.size ),
+          preview: URL.createObjectURL( file ),
+          progress: 0,
+          uploaded: false,
+          error: false,
+          url: null
+    
+        }) )
+    
+        setFile( ...fs )
+    
+    };
+
+      let renderDragMessage = ( isDragActive, isDragReject ) => {
+
+        if( !isDragActive ) {
+          return <div>Arraste os arquivos aqui ...</div>
+        }
+    
+        if( isDragReject ) {
+          return <div type="error" >Arquivo não suportado</div>
+        }
+    
+        return <div type="success">Solte os arquivos aqui</div>
+    
+      }
+
     return(
         <div className="pageContainer">
 
             <form onSubmit={ handleSubmit } id="form_new_missing">
                 <div className="newmissingArea">
-                    <div className="newmissingHeader">Novo Desaparecido</div>
+                <div className="newmissingHeader">{ id ? 'Atualizar Desaparecido' : 'Novo Desaparecido' }</div>
 
                     <div className="newmissingImg">
-                        <Dropzone
-                            getUploadParams={getUploadParams}
-                            onChangeStatus={handleChangeStatus}
-                            accept="image/*"
-                            multiple={false}
-                            maxFiles={1}
-                            inputContent="Arraste a imagem aqui"
-                            styles={{
-                                dropzoneActive: { borderColor: '#78e5d5' },
-                                dropzoneReject: { borderColor: '#e57878' }
-                            }}
-                        />
+                    <Dropzone accept="image/*" onDropAccepted={handleUpload}>
+
+                        { ({ getRootProps, getInputProps, isDragActive, isDragReject }) => (
+                            <div className="dropzone-input"
+                                { ...getRootProps() }
+                                isDragActive={ isDragActive }
+                                isDragReject={ isDragReject }
+                            >
+                            <input {...getInputProps()} />
+                            { renderDragMessage( isDragActive, isDragReject ) }
+
+                            </div>
+                        ) }
+
+                    </Dropzone>
                     </div>
 
                     <div className="body">
@@ -181,6 +218,7 @@ const NewMissing = () => {
                                 name="dog_name" 
                                 id="dog_name"
                                 onChange={handleInputChange}
+                                value={ formData.dog_name }
                                 required 
                             />
                         </div>
@@ -191,7 +229,8 @@ const NewMissing = () => {
                                 placeholder="2 anos ou 2 meses"
                                 name="age" 
                                 id="age"
-                                onChange={handleInputChange} 
+                                onChange={handleInputChange}
+                                value={ formData.age } 
                             />
                         </div>
                         <div className="inputAreaReg">
@@ -199,7 +238,8 @@ const NewMissing = () => {
                             <select 
                                 id="state" 
                                 name="state" 
-                                onChange={handleSelectUf} 
+                                onChange={handleSelectUf}
+                                value={ selectedState } 
                                 required
                             >
                                 <option value="">Selecione um estado</option>
@@ -216,6 +256,7 @@ const NewMissing = () => {
                                 id="city" 
                                 name="city" 
                                 onChange={handleSelectCity} 
+                                value={ selectedCity }
                                 required
                             >
                                 <option value="">Selecione uma cidade</option>
@@ -231,12 +272,16 @@ const NewMissing = () => {
                             <textarea 
                                 name="info" 
                                 id="info"
-                                onChange={handleTextChange} 
+                                onChange={handleTextChange}
+                                value={ formData.info } 
                             ></textarea>
                         </div>
                     </div>
                     <div className="footer">
-                        <button className="registerButton">Cadastrar</button>
+                        <button className="registerButton">
+                            <span id="id"><FaSearchPlus style={{ marginRight: 4 }} /></span>
+                            Cadastrar
+                        </button>
                     </div>
                 </div>
             </form>

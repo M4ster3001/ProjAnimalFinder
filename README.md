@@ -9,4 +9,5 @@
      - perfil user (x) [ visual(x), integração(x) ]
      - show animal ( ) [ visual(), integração() ]
      - cadastro desaparecido/ edit ( ) [ visual(x), integração() [ terminar uploda da imagem e terminar o registro ] ]
-     - 
+
+     - alterado o tipo do arquivo de index.tsx para index.jxs em NewMissing

@@ -52,20 +52,6 @@
     width: 40%;
 }
 
-.buttonProfile {
-    padding: 10px 30px;
-    border-radius: 8px;
-    color: #fafafa;
-    background-color: #26C281;
-    border: 1px solid #ccc;
-    text-transform: uppercase;
-
-    transition: all ease 0.5s;
-    -o-transition: all ease 0.5s;
-    -moz-transition: all ease 0.5s;
-    -webkit-transition: all ease 0.5s;
-    margin-top: 20px;
-}
 
 .bodyProfile .inputArea label {
     color: #fff;

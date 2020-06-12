@@ -6,6 +6,7 @@ import { apiLogin } from '../../services/api';
 import { doLogin, doLogout } from '../../services/authHandler';
 
 import logo from '../../images/logoLogin.png'
+import { MdPersonAdd } from 'react-icons/md';
 
 const NewUser = () => {
 
@@ -55,7 +56,7 @@ const NewUser = () => {
                 phone,
                 password
             } ).then((response) => {
-                    
+
                 doLogin( response.data );
                 window.location.href = '/';
 
@@ -164,7 +165,10 @@ const NewUser = () => {
                         </div>
 
                         <div className="actionsBtn">
-                            <button className="buttonNewUser">Cadastrar</button>
+                            <button className="buttonNewUser">
+                                <span id="icon" ><MdPersonAdd /></span>
+                                Cadastrar
+                            </button>
                         </div>
                     </form>
                 </div>

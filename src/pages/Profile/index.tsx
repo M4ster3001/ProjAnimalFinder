@@ -1,4 +1,5 @@
 import React, { FormEvent, useState, ChangeEvent, useEffect } from 'react';
+import { MdPersonAdd } from 'react-icons/md';
 import { ToastProvider } from 'react-toast-notifications';
 import './styles.css';
 import { api } from '../../services/api';
@@ -67,9 +68,9 @@ const Profile = () => {
     }, [] )
 
     useEffect( () => {
-        api.get( `animals` ).then( ( resp ) => {
+        api.get( `animals/user/${id}` ).then( ( resp ) => {
             
-            setAnimals( resp.data )
+            setAnimals( resp.data.lstAnimals )
         });
 
     }, [id] )
@@ -242,7 +243,10 @@ const Profile = () => {
                         </div>
 
                         <div className="actionsBtn">
-                            <button className="buttonProfile">Cadastrar</button>
+                            <button className="buttonProfile">
+                                <span id="icon"><MdPersonAdd size={ 16 }/></span>
+                                Cadastrar
+                            </button>
                         </div>
                     </form>
                 </div>

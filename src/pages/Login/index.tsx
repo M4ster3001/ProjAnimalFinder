@@ -5,6 +5,7 @@ import { apiLogin } from '../../services/api';
 
 import logo from '../../images/logoLogin.png'
 import { doLogin } from '../../services/authHandler';
+import { FiLogIn } from 'react-icons/fi';
 
 const Login = () => {
 
@@ -80,7 +81,10 @@ const Login = () => {
                         </div>
 
                         <div className="actionsBtn">
-                            <button className="buttonLogin">Logar</button>
+                            <button className="buttonLogin">
+                                <span id="icon" ><FiLogIn /></span>
+                                Logar
+                            </button>
                         </div>
                     </form>
                 </div>

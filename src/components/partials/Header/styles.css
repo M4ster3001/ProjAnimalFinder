@@ -48,7 +48,7 @@ li {
 
 a, .noButton {
     color: #000;
-    font-size: 14px;
+    font-size: 16px;
     transition: 0.5s;
     outline: 0;               
 }
@@ -81,4 +81,8 @@ a:hover, .noButton:hover {
 .noButton {
     border: 0 !important;
     background-color: transparent !important;
+}
+
+#id svg {
+    color: #000;
 }

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { AiFillNotification } from 'react-icons/ai';
+import { RiFolderUserLine } from 'react-icons/ri';
 import './styles.css';
 
 import { isLogged, doLogout } from '../../../services/authHandler'; 
@@ -28,10 +30,16 @@ const Header: React.FunctionComponent = () => {
                     { logged &&
                     <>
                         <li>
-                            <Link to="/newmissing" className="button"> Novo caso</Link>
+                            <Link to="/newmissing" className="button">
+                                <span id="id"><AiFillNotification /></span> 
+                                Novo caso
+                            </Link>
                         </li>
                         <li>
-                            <Link to="/profile">Meu perfil</Link>
+                            <Link to="/profile" className="button">
+                                <span id="id"><RiFolderUserLine /></span> 
+                                Meu perfil
+                            </Link>
                         </li>
                         <li>
                             <button className="noButton" onClick={handleLogout}>Sair</button>
