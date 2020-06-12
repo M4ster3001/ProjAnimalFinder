@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { FiTrash, FiEdit } from 'react-icons/fi'
+import { RiArrowGoBackLine } from 'react-icons/ri';
 import MuiAlert from '@material-ui/lab/Alert';
 import { FaSearchLocation, FaLess } from 'react-icons/fa'
 import Cookies from 'js-cookie';
@@ -51,6 +52,48 @@ const Cards: React.FunctionComponent<Animal> = ( props ) => {
 
             if( response.data.error ) {
                 console.log( response.data.error )
+
+                return;
+            }
+
+            window.location.href = '/profile';
+
+        }).catch( (err) => {
+
+            if ( err.response ) {
+
+                setError(err.response.data.message);
+                setOpen(true);
+
+            } else if ( err.request ) {
+
+                setError(err.request);
+                setOpen(true);
+
+            } else {
+
+                setError(err.message);
+                setOpen(true);
+                
+            }
+            return;
+
+        })
+    }
+
+    function handleBackCase( id: number ) {
+
+        if( !Cookies.get( 'token' ) ) {
+            window.location.href = '/login'
+        }
+
+        api.put( `animals/notfound/${id}` )
+        .then((response) => {
+
+            if( response.data.error ) {
+
+                setError(response.data.error);
+                setOpen(true);
 
                 return;
             }
@@ -166,6 +209,17 @@ const Cards: React.FunctionComponent<Animal> = ( props ) => {
                     { 
                         props.styles === 'left' ? 
                             <>
+                            { 
+                                props.contact_user &&
+                                <>
+                                    <br />
+                                    <button className="altButton" style={{ backgroundColor: '#F3C200', marginBottom: 5 }} onClick={()=> { handleBackCase(props.animal.id) }}>
+                                        <span id="icon"><RiArrowGoBackLine size={ 14 }/></span> 
+                                        Não encontrado
+                                    </button> 
+                                    <br />
+                                </>
+                            }
                                 <Link to={`/editanimal/${props.animal.id}`} className="altButton">
                                     <span id="icon"><FiEdit size={ 14 }/></span> 
                                     Editar
@@ -188,4 +242,4 @@ const Cards: React.FunctionComponent<Animal> = ( props ) => {
     )
 }
 
-export default Cards;
+export default Cards;v
