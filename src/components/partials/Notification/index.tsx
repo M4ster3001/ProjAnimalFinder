@@ -9,13 +9,13 @@ interface NewAlerts extends AlertProps {
 
 const Notification = ( props:NewAlerts ) => {
     
-    const [ open, setOpen ] = useState(props.open);
+    const [ open, setOpen ] = useState( props.message ? true : false );
 
     return(
         <div>
             <Snackbar
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                autoHideDuration={4000}
+                autoHideDuration={10000}
                 open={open}
                 onClose={ ()=> { setOpen(false) } }
             >

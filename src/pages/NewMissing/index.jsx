@@ -101,18 +101,37 @@ const NewMissing = () => {
 
             if ( error.response ) {
 
-            setOpen(true);
-            setError(error.response.data.message);
+                if ( error.response.data.error ) {
+                    setError( error.response.data.error )
+                    setOpen( true );
+
+                    return;
+                }
+
+                if( error.response.data.errors ) {
+                    let lst = '';
+
+                    for( let i = 0; i < error.response.data.errors.length; i++ ) {
+                        lst += ` Campo errado: ${error.response.data.errors[i].param}/ Mensagem: ${error.response.data.errors[i].msg}`
+                    }
+
+                    setError( lst )
+
+                    return;               
+                }
 
             } else if ( error.request ) {
 
-                setOpen(true);
-                setError(`Error ${ error.request }`);
+                setError( error.request );
+                setOpen( true );
 
+                return;
             } else {
 
-                setOpen(true);
-                setError(`Error ${ error.message }`);
+                setError( error.message );
+                setOpen( true );
+
+                return;
             }
 
         });
@@ -263,6 +282,12 @@ const NewMissing = () => {
 
         URL.revokeObjectURL(file.preview);
     }, [file]);
+
+    useEffect( () =>{
+
+        setTimeout( () =>{ setError( '' ); setOpen( false ) }, 2000 );
+
+    }, [ error ] )
 
     return(
         <>

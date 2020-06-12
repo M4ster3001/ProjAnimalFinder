@@ -144,20 +144,38 @@ const Profile = () => {
 
                 if ( error.response ) {
 
-                    setError( error.response.data.message );
-                    setOpen( true );
-
+                    if ( error.response.data.error ) {
+                        setError( error.response.data.error )
+                        setOpen( true );
+    
+                        return;
+                    }
+    
+                    if( error.response.data.errors ) {
+                        let lst = '';
+    
+                        for( let i = 0; i < error.response.data.errors.length; i++ ) {
+                            lst += ` Campo errado: ${error.response.data.errors[i].param}/ Mensagem: ${error.response.data.errors[i].msg}`
+                        }
+    
+                        setError( lst )
+    
+                        return;               
+                    }
+    
                 } else if ( error.request ) {
-
+    
                     setError( error.request );
                     setOpen( true );
-
+    
+                    return;
                 } else {
-
+    
                     setError( error.message );
                     setOpen( true );
+    
+                    return;
                 }
-                return;
 
             })
 
@@ -170,6 +188,12 @@ const Profile = () => {
         setDisabled( false );
 
     }
+
+    useEffect( () =>{
+
+        setTimeout( () =>{ setError( '' ); setOpen( false ) }, 2000 );
+
+    }, [ error ] )
 
     return(
         <>

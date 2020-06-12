@@ -1,7 +1,9 @@
-import React, { FormEvent, useState, ChangeEvent } from 'react';
+import React, { FormEvent, useState, ChangeEvent, useEffect } from 'react';
 import { ToastProvider } from 'react-toast-notifications';
 import './styles.css';
 import { apiLogin } from '../../services/api';
+
+import Notification from '../../components/partials/Notification';
 
 import { doLogin, doLogout } from '../../services/authHandler';
 
@@ -10,15 +12,19 @@ import { MdPersonAdd } from 'react-icons/md';
 
 const NewUser = () => {
 
-    const [disabled, setDisabled] = useState(false);
-    const [error, setError] = useState('');
-
+    
+    const [ isMobile, setIsMobile ] = useState( window.innerWidth < 480 );
+    
     const [ user_name, SetUserName ] = useState('');
     const [ email, SetEmail ] = useState('');
     const [ phone, SetPhone ] = useState('');
     const [ password, SetPassword ] = useState('');
     const [ confirm_password, SetConfPassword ] = useState('');
-
+    
+    const [disabled, setDisabled] = useState(false);
+    const [ error, setError ] = useState('');
+    const [ open, setOpen ] = useState(false);
+    
     const [ formData, setFormData ] = useState({
         user_name,
         email,
@@ -62,17 +68,41 @@ const NewUser = () => {
 
             }).catch( (error) => {
 
+                setDisabled( false );
+
                 if ( error.response ) {
 
-                  alert( error.response.data.message );
-
+                    if ( error.response.data.error ) {
+                        setError( error.response.data.error )
+                        setOpen( true );
+    
+                        return;
+                    }
+    
+                    if( error.response.data.errors ) {
+                        let lst = '';
+    
+                        for( let i = 0; i < error.response.data.errors.length; i++ ) {
+                            lst += ` Campo errado: ${error.response.data.errors[i].param}/ Mensagem: ${error.response.data.errors[i].msg}`
+                        }
+    
+                        setError( lst )
+    
+                        return;               
+                    }
+    
                 } else if ( error.request ) {
-
-                    alert( error.request );
-
+    
+                    setError( error.request );
+                    setOpen( true );
+    
+                    return;
                 } else {
-
-                    alert(`Error ${ error.message }`);
+    
+                    setError( error.message );
+                    setOpen( true );
+    
+                    return;
                 }
 
             })
@@ -85,96 +115,104 @@ const NewUser = () => {
 
     }
 
+    useEffect( () =>{
+
+        setTimeout( () =>{ setError( '' ); setOpen( false ) }, 4000 );
+
+    }, [ error ] )
+
     return(
-        <div className="pageContainer">
+        <>
             { error &&
-                error
+                <Notification severity="error" open={open} message={error}/>           
             }
-            <div className="logoNewUser">
-                <img src={ logo } alt="LogoAnimal" />
-            </div>
-
-            <div className="NewUserArea">
-                <div className="headerNewUser">
-                    <p>Cadastrar Dados</p>
+            <div className="pageContainer">
+                <div className="logoNewUser">
+                    <img src={ logo } alt="LogoAnimal" />
                 </div>
 
-                <div className="bodyNewUser">
-                    <form onSubmit={ handleRegister }>
-                        <div className="inputAreaReg">
-                            <label htmlFor="name" >Nome</label>
-                            <input 
-                                type="text" 
-                                name="user_name" 
-                                id="user_name"
-                                minLength={ 4 }  
-                                onChange={ handleInputChange }
-                                disabled={disabled} 
-                                required
-                            />
-                        </div>
+                <div className="NewUserArea">
+                    <div className="headerNewUser">
+                        <p>Cadastrar Dados</p>
+                    </div>
 
-                        <div className="inputAreaReg">
-                            <label htmlFor="email" >Email</label>
-                            <input 
-                                type="email" 
-                                name="email" 
-                                id="email" 
-                                onChange={ handleInputChange }
-                                disabled={disabled}
-                                required  
-                            />
-                        </div>
+                    <div className="bodyNewUser">
+                        <form onSubmit={ handleRegister }>
+                            <div className={ isMobile ? "inputAreaLog" : "inputAreaReg" }>
+                                <label htmlFor="name" >Nome</label>
+                                <input 
+                                    type="text" 
+                                    name="user_name" 
+                                    id="user_name"
+                                    minLength={ 4 }  
+                                    onChange={ handleInputChange }
+                                    disabled={disabled} 
+                                    required
+                                />
+                            </div>
 
-                        <div className="inputAreaReg">
-                            <label htmlFor="phone" >Telefone</label>
-                            <input 
-                                type="text"
-                                name="phone" 
-                                id="phone"
-                                onChange={ handleInputChange }
-                                disabled={disabled} 
-                                required 
-                            />
-                        </div>
+                            <div className={ isMobile ? "inputAreaLog" : "inputAreaReg" }>
+                                <label htmlFor="email" >Email</label>
+                                <input 
+                                    type="email" 
+                                    name="email" 
+                                    id="email" 
+                                    onChange={ handleInputChange }
+                                    disabled={disabled}
+                                    required  
+                                />
+                            </div>
 
-                        <div className="inputAreaReg">
-                            <label htmlFor="password" >Senha</label>
-                            <input 
-                                type="password" 
-                                name="password" 
-                                id="password" 
-                                minLength={ 6 }
-                                onChange={ handleInputChange } 
-                                disabled={disabled}
-                                required 
-                            />
-                        </div>
+                            <div className={ isMobile ? "inputAreaLog" : "inputAreaReg" }>
+                                <label htmlFor="phone" >Telefone</label>
+                                <input 
+                                    type="text"
+                                    name="phone" 
+                                    id="phone"
+                                    onChange={ handleInputChange }
+                                    disabled={disabled} 
+                                    required 
+                                />
+                            </div>
 
-                        <div className="inputAreaReg">
-                            <label htmlFor="password" >Confirmar Senha</label>
-                            <input 
-                                type="password" 
-                                name="confirm_password" 
-                                id="confirm_password"
-                                minLength={ 6 } 
-                                onChange={ handleInputChange }
-                                disabled={disabled} 
-                                required 
-                            />
-                        </div>
+                            <div className={ isMobile ? "inputAreaLog" : "inputAreaReg" }>
+                                <label htmlFor="password" >Senha</label>
+                                <input 
+                                    type="password" 
+                                    name="password" 
+                                    id="password" 
+                                    minLength={ 6 }
+                                    onChange={ handleInputChange } 
+                                    disabled={disabled}
+                                    required 
+                                />
+                            </div>
 
-                        <div className="actionsBtn">
-                            <button className="buttonNewUser">
-                                <span id="icon" ><MdPersonAdd /></span>
-                                Cadastrar
-                            </button>
-                        </div>
-                    </form>
+                            <div className={ isMobile ? "inputAreaLog" : "inputAreaReg" }>
+                                <label htmlFor="password" >Confirmar Senha</label>
+                                <input 
+                                    type="password" 
+                                    name="confirm_password" 
+                                    id="confirm_password"
+                                    minLength={ 6 } 
+                                    onChange={ handleInputChange }
+                                    disabled={disabled} 
+                                    required 
+                                />
+                            </div>
+
+                            <div className="actionsBtn">
+                                <button className="buttonNewUser">
+                                    <span id="icon" ><MdPersonAdd /></span>
+                                    Cadastrar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
-
             </div>
-        </div>
+        </>
     );
 
 }

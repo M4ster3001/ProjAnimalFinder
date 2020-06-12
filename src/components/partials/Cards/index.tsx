@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { FiTrash, FiEdit } from 'react-icons/fi'
 import MuiAlert from '@material-ui/lab/Alert';
 import { FaSearchLocation, FaLess } from 'react-icons/fa'
- 
+import Cookies from 'js-cookie';
+
 import './styles.css';
 
 import missingImage from '../../../images/missingImage.png';
@@ -80,6 +81,10 @@ const Cards: React.FunctionComponent<Animal> = ( props ) => {
     }
 
     function handleFindHim( id: number ) {
+
+        if( !Cookies.get( 'token' ) ) {
+            window.location.href = '/login'
+        }
 
         api.put( `animals/found/${id}` )
         .then((response) => {

@@ -67,3 +67,11 @@
 .bodyLogin .inputAreaLog #email, .bodyLogin .inputAreaLog #password {
     text-align: center;
 }
+
+@media only screen and ( max-width: 430px ) {
+
+    .NewUserArea {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
