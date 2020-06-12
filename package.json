@@ -20,6 +20,7 @@
     "@types/react-toast-notifications": "^2.4.0",
     "@types/styled-components": "^5.1.0",
     "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
     "filesize": "^6.1.0",
     "js-cookie": "^2.2.1",
     "react": "^16.13.1",
