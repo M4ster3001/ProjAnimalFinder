@@ -242,4 +242,4 @@ const Cards: React.FunctionComponent<Animal> = ( props ) => {
     )
 }
 
-export default Cards;v
+export default Cards;
